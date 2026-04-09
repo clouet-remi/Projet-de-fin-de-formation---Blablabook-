@@ -1,0 +1,52 @@
+{
+  "title": "Ma bibliothèque",
+  "greeting": "Bonjour {username} — {count} livre{plural} dans votre bibliothèque",
+  "addBook": "Ajouter un livre",
+  "filters": {
+    "all": "Tous ({count})",
+    "toRead": "À lire ({count})",
+    "reading": "En cours ({count})",
+    "read": "Lus ({count})"
+  },
+  "stats": {
+    "toRead": "À lire",
+    "reading": "En cours",
+    "read": "Lus"
+  },
+  "status": {
+    "TO_READ": "À lire",
+    "READING": "En cours",
+    "READ": "Lu"
+  },
+  "loading": "Chargement...",
+  "authError": "Impossible de vérifier votre session. Vérifiez votre connexion.",
+  "retry": "Réessayer",
+  "empty": "Aucun livre trouvé dans cette catégorie.",
+  "emptySearch": "Aucun livre ne correspond à votre recherche.",
+  "explore": "Explorer le catalogue",
+  "pagination": {
+    "previous": "Précédent",
+    "next": "Suivant",
+    "info": "Page {current} / {total}"
+  },
+  "delete": {
+    "title": "Supprimer ce livre ?",
+    "description": "Le livre \"{title}\" sera supprimé définitivement de votre bibliothèque.",
+    "confirm": "Supprimer",
+    "cancel": "Annuler"
+  },
+  "actions": {
+    "view": "Voir le détail",
+    "delete": "Supprimer {title}"
+  },
+  "authorUnknown": "Auteur inconnu",
+  "unknownTitle": "Ce livre",
+  "statusUpdated": "Statut mis à jour.",
+  "statusError": "Impossible de mettre à jour le statut.",
+  "deleteSuccess": "\"{title}\" supprimé de votre bibliothèque.",
+  "deleteError": "Impossible de supprimer le livre.",
+  "welcomeToast": "Bienvenue {username} — {count} livre{plural} dans votre bibliothèque",
+  "onboardingTitle": "Votre bibliothèque est vide",
+  "onboardingDescription": "Commencez par rechercher des livres et ajoutez-les à votre bibliothèque pour suivre vos lectures.",
+  "onboardingCta": "Rechercher des livres"
+}

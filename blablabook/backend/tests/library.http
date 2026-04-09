@@ -1,0 +1,56 @@
+@baseUrl = http://localhost:3001
+
+// TODO : ajouter les tests pour les requêtes invalides quand le controller sera à jour pour les gérer
+
+### Get user's library
+GET {{baseUrl}}/library
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJjMDhjYmZmNS1iZTVjLTRkZjUtOWQ1YS03ZmZmYjQyYzdkNzMiLCJpYXQiOjE3NzM5MTUxNDksImV4cCI6MTc3MzkxODc0OX0.ah0g4jjtwyR5MLUQSIVPZ-kFs3zTaQzzT_fBoqkq0rQ
+
+
+### Add a book to a user's library
+POST {{baseUrl}}/library
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJjMDhjYmZmNS1iZTVjLTRkZjUtOWQ1YS03ZmZmYjQyYzdkNzMiLCJpYXQiOjE3NzM5MTUxNDksImV4cCI6MTc3MzkxODc0OX0.ah0g4jjtwyR5MLUQSIVPZ-kFs3zTaQzzT_fBoqkq0rQ
+
+{
+  "isbn": "9782070368228",
+  "openLibraryId": "OL45804W",
+  "title": "L'Étranger",
+  "author": "Albert Camus",
+  "genre": "Roman",
+  "description": "Un classique de la littérature française du XXe siècle.",
+  "thumbnail": "https://covers.openlibrary.org/b/id/8231856-L.jpg",
+  "publisher": "Gallimard",
+  "pageCount": 185,
+  "language": "fr",
+  "publishedYear": 1942,
+  "status": "TO_READ"
+}
+
+### Add a book to a user's library (ommitting required fields to trigger validation error)
+POST {{baseUrl}}/library
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJjMDhjYmZmNS1iZTVjLTRkZjUtOWQ1YS03ZmZmYjQyYzdkNzMiLCJpYXQiOjE3NzM5MTUxNDksImV4cCI6MTc3MzkxODc0OX0.ah0g4jjtwyR5MLUQSIVPZ-kFs3zTaQzzT_fBoqkq0rQ
+
+{
+  "isbn": "9782070368228",
+  "publishedYear": 1942,
+  "status": "TO_READ"
+}
+
+### Update reading status of a book in user's library
+PATCH {{baseUrl}}/library/bdae862b-0ec5-4371-9977-b81b6889179e
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJjMDhjYmZmNS1iZTVjLTRkZjUtOWQ1YS03ZmZmYjQyYzdkNzMiLCJpYXQiOjE3NzM5MTUxNDksImV4cCI6MTc3MzkxODc0OX0.ah0g4jjtwyR5MLUQSIVPZ-kFs3zTaQzzT_fBoqkq0rQ
+
+{
+  "status": "READING"
+}
+
+### Delete a book from user's library
+DELETE {{baseUrl}}/library/bdae862b-0ec5-4371-9977-b81b6889179e
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJjMDhjYmZmNS1iZTVjLTRkZjUtOWQ1YS03ZmZmYjQyYzdkNzMiLCJpYXQiOjE3NzM5MTUxNDksImV4cCI6MTc3MzkxODc0OX0.ah0g4jjtwyR5MLUQSIVPZ-kFs3zTaQzzT_fBoqkq0rQ
+
+### Delete a non-existent book from user's library
+DELETE {{baseUrl}}/library/bdae86zujeghf
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJjMDhjYmZmNS1iZTVjLTRkZjUtOWQ1YS03ZmZmYjQyYzdkNzMiLCJpYXQiOjE3NzM5MTUxNDksImV4cCI6MTc3MzkxODc0OX0.ah0g4jjtwyR5MLUQSIVPZ-kFs3zTaQzzT_fBoqkq0rQ

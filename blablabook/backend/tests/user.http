@@ -1,0 +1,32 @@
+@baseUrl = http://localhost:3001
+@accessToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI0NGU4YmJlNi1lZThiLTQ5MmEtYWM4ZC1jYmQ0MzAzZjE3ZWEiLCJpYXQiOjE3NzM5OTg5ODUsImV4cCI6MTc3NDAwMjU4NX0.i8PTVjfFYJCoG5vX_HWezatQuS4v1hLNr7O3hgsX3pM
+
+
+### Update an existing user
+PATCH {{baseUrl}}/user/profile
+Content-Type: application/json
+Cookie: accessToken={{accessToken}}
+
+{
+  "email": "test@example.com",
+  "password": "Password123",
+  "username": "newUserTest"
+}
+
+### Update an existing user with wrong PW
+PATCH {{baseUrl}}/user/profile
+Content-Type: application/json
+Cookie: accessToken={{accessToken}}
+
+{
+  "password": "123",
+}
+
+### Update an existing user with wrong email
+PATCH {{baseUrl}}/user/profile
+Content-Type: application/json
+Cookie: accessToken={{accessToken}}
+
+{
+  "email": "123",
+}
