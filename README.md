@@ -7,6 +7,63 @@
 
 ---
 
+## Démarrage rapide (correcteur)
+
+> Un résumé condensé pour lancer et tester l'application sans lire toute la documentation.
+
+**Prérequis** : Node.js 22+, npm 10+, Docker + Docker Compose
+
+```bash
+# 1. Cloner et se placer dans le dossier de la stack
+git clone <url-du-repo>
+cd BlaBlaBook/blablabook
+
+# 2. Créer le fichier d'environnement et renseigner les valeurs requises
+cp .env.example .env
+# ⚠️ Renseigner a minima JWT_SECRET (obligatoire) et POSTGRES_PASSWORD
+
+# 3. Démarrer toute la stack (PostgreSQL, backend, frontend, Adminer)
+docker compose up -d
+
+# 4. Appliquer les migrations (première fois uniquement)
+docker compose exec api npx prisma migrate deploy
+
+# Application disponible sur http://localhost:3001
+# Backend API sur http://localhost:3000
+# Adminer (BDD) sur http://localhost:8000
+```
+
+**Lancer les tests**
+
+```bash
+# Tests backend (unitaires + intégration)
+# ⚠️ Nécessite un fichier blablabook/backend/.env.test (voir section Tests)
+cd blablabook/backend
+npm test
+
+# Tests frontend
+cd blablabook/frontend
+npm test
+```
+
+**Lancer le lint**
+
+```bash
+cd blablabook/backend && npm run lint
+cd blablabook/frontend && npm run lint
+```
+
+**Dépannage rapide**
+
+| Problème | Solution |
+|----------|----------|
+| Le backend ne démarre pas | Vérifier que `JWT_SECRET` est bien défini dans `.env` (obligatoire) |
+| `prisma migrate deploy` échoue | Vérifier que `DATABASE_URL` pointe vers le service `db` (pas `localhost`) en Docker |
+| Les cookies ne fonctionnent pas en local | Utiliser `http://localhost:3001` — le proxy `/api` gère les cookies httpOnly |
+| Les tests d'intégration échouent | Créer `blablabook/backend/.env.test` avec une base dédiée (voir section Tests) |
+
+---
+
 ## Présentation
 
 BlaBlaBook est une application web fullstack de gestion de bibliothèque personnelle. Elle permet aux utilisateurs de rechercher des livres via l'API Open Library (avec fallback Google Books), de les ajouter à leur bibliothèque, de suivre leur statut de lecture et de gérer leur profil.
@@ -299,9 +356,9 @@ Variables `.env` backend :
 ```env
 PORT=3000
 DATABASE_URL=postgresql://user:password@localhost:5433/blablabook?schema=public
-JWT_SECRET=your-secret-key-min-32-chars
+JWT_SECRET=your-secret-key-min-32-chars   # Obligatoire — le serveur refuse de démarrer sans cette variable
 ALLOWED_ORIGINS=http://localhost:3001
-# Optionnel — Redis (Upstash)
+# Optionnel — Redis (Upstash) ; sans cette variable le cache est désactivé silencieusement
 UPSTASH_REDIS_URL=rediss://...
 ```
 
@@ -418,7 +475,7 @@ Tests Vitest + jsdom couvrant les services (`authService`, `libraryService`) et 
 NODE_ENV=production
 PORT=3000
 DATABASE_URL=<URL_Neon>
-JWT_SECRET=<clé_256_bits>
+JWT_SECRET=<clé_256_bits>           # Obligatoire — le serveur refuse de démarrer sans cette variable
 ALLOWED_ORIGINS=https://blablabook-front.onrender.com
 UPSTASH_REDIS_URL=<URL_Upstash_TLS>
 ```

@@ -1,11 +1,37 @@
-# Utilisation de Docker Compose
-## Version 2.0 : db, adminer, api, frontend
+# 🚀 Blablabook — Fullstack App (Docker + Next.js + Express + Prisma)
 
-### Prérequis
-- Docker et Docker Compose installés
-- Un fichier `.env` à la racine de `blablabook/` en suivant le modèle ci-dessous
+Application fullstack développée avec une architecture conteneurisée via Docker Compose.
 
-### Modèle de .env
+👉 **Démo en ligne** :
+https://projet-de-fin-de-formation-blablabo.vercel.app/fr
+
+> ⚠️ Le backend est hébergé sur Render (free tier).
+> Lors de la première requête, il peut mettre **30 à 60 secondes à se réveiller**. Merci de patienter si l’API ne répond pas immédiatement.
+
+---
+
+## 🧱 Stack technique
+
+* **Frontend** : Next.js
+* **Backend** : Express + Prisma
+* **Base de données** : PostgreSQL
+* **Admin DB** : Adminer
+* **Conteneurisation** : Docker & Docker Compose
+
+---
+
+## ⚙️ Prérequis
+
+* Docker
+* Docker Compose
+* Un fichier `.env` à la racine du projet
+
+---
+
+## 🔐 Configuration (.env)
+
+Créer un fichier `.env` basé sur ce modèle :
+
 ```env
 # ─── Base de données ───────────────────────────────
 POSTGRES_USER=XXXXXX
@@ -16,65 +42,81 @@ POSTGRES_PORT=XXXX
 # ─── API (Express + Prisma) ────────────────────────
 PORT=XXXX
 ALLOWED_ORIGINS="*"
-DATABASE_URL=postgresql://username:password@db:port/dbname?schema=public
+DATABASE_URL=postgresql://username:password@db:5432/dbname?schema=public
 
 # ─── Frontend (Next.js) ────────────────────────────
 FRONTEND_PORT=XXXX
 ```
 
-> ⚠️ Ne pas modifier `@db:5432` dans la `DATABASE_URL` : `db` est le nom du service PostgreSQL dans Docker, et `5432` est son port interne.
+> ⚠️ Ne pas modifier `@db:5432` dans `DATABASE_URL`
+> `db` correspond au service PostgreSQL dans Docker.
 
 ---
 
-### Lancement
+## ▶️ Lancement du projet
 
-Tout se fait via le script `init.sh` depuis la racine du projet :
+Depuis la racine du projet :
 
 ```bash
 bash init.sh
 ```
 
-Ce script va automatiquement :
-1. Arrêter et supprimer les conteneurs existants
-2. Démarrer tous les services (db, adminer, api, frontend)
-3. Attendre que l'API soit prête
-4. Lancer le reset de la BDD et le seeding
+### Ce script automatise :
+
+1. L'arrêt et la suppression des conteneurs existants
+2. Le démarrage des services (`db`, `adminer`, `api`, `frontend`)
+3. L'attente que l’API soit prête
+4. Le reset de la base de données + seeding
 
 ---
 
-### Services disponibles
+## 🌐 Services disponibles en local
 
-| Service  | URL                   | Description                  |
-|----------|-----------------------|------------------------------|
-| Frontend | http://localhost:3000 | Application Next.js          |
-| API      | http://localhost:3001 | API Express                  |
-| Adminer  | http://localhost:8000 | Interface d'admin PostgreSQL |
+| Service  | URL                   | Description          |
+| -------- | --------------------- | -------------------- |
+| Frontend | http://localhost:3000 | Application Next.js  |
+| API      | http://localhost:3001 | API Express          |
+| Adminer  | http://localhost:8000 | Interface PostgreSQL |
 
 ---
 
-### Vérifier que tout fonctionne
+## ✅ Vérification
 
-Connectez-vous à [Adminer](http://localhost:8000) avec les identifiants de votre `.env`. Si les tables sont visibles et peuplées, tout est bon !
+1. Accéder à Adminer : http://localhost:8000
+2. Se connecter avec les identifiants du `.env`
+3. Vérifier que les tables sont présentes et remplies
 
-Pour suivre les logs en temps réel :
+---
+
+## 📜 Logs
 
 ```bash
-docker compose logs -f          # tous les services
-docker compose logs -f api      # API uniquement
+docker compose logs -f          # Tous les services
+docker compose logs -f api      # Backend uniquement
 docker compose logs -f frontend # Frontend uniquement
 ```
 
 ---
 
-### Commandes utiles
+## 🧰 Commandes utiles
 
 ```bash
-# Arrêter les conteneurs sans supprimer les volumes
+# Stopper les conteneurs (sans supprimer les volumes)
 docker compose stop
 
-# Arrêter et supprimer les conteneurs
+# Stopper et supprimer les conteneurs
 docker compose down
 
-# Relancer proprement (reset BDD + seeding inclus)
+# Redémarrage complet (avec reset BDD + seed)
 bash init.sh
 ```
+
+---
+
+## 💡 Notes
+
+* Le projet est conçu pour un environnement de développement local via Docker
+* Le backend en production utilise Render (cold start possible)
+* Le frontend est déployé sur Vercel
+
+---

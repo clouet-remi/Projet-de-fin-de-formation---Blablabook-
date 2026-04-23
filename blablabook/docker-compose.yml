@@ -37,6 +37,7 @@ services:
       - DATABASE_URL=${DATABASE_URL}
       - PORT=${PORT}
       - ALLOWED_ORIGINS=${ALLOWED_ORIGINS}
+      - JWT_SECRET=${JWT_SECRET}
     command: sh -c "npm install && npm run docker:dev"
     restart: unless-stopped
     depends_on:

@@ -72,7 +72,11 @@ export async function updateUser(req: Request, res: Response) {
 
   const { currentPassword: _currentPassword, ...updateData } = data;
 
-  const updatedUser = await prisma.user.update({ where: { id: userId }, data: updateData });
+  const updatedUser = await prisma.user.update({
+    where: { id: userId },
+    data: updateData,
+    select: { id: true, email: true, username: true, createdAt: true, updatedAt: true },
+  });
 
   return res.status(200).json({ message: "User updated successfully", user: updatedUser });
 
